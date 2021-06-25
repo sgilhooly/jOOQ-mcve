@@ -12,12 +12,12 @@ class ScalaTest extends AbstractTest {
   def mcveTest(): Unit = {
     val result = ctx
       .insertInto(TEST)
-      .columns(TEST.VALUE)
-      .values(42)
-      .returning(TEST.ID)
+      .columns(TEST.COMPANY_ID, TEST.NAME)
+      .values("42", "A name")
+      .returning(TEST.COMPANY_ID)
       .fetchOne
 
     result.refresh
-    assertEquals(42, result.getValue)
+    assertEquals("42", result.getCompanyId)
   }
 }

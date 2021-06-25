@@ -11,7 +11,7 @@ import org.jooq.ForeignKey
 import org.jooq.Identity
 import org.jooq.Name
 import org.jooq.Record
-import org.jooq.Row2
+import org.jooq.Row3
 import org.jooq.Schema
 import org.jooq.Table
 import org.jooq.TableField
@@ -22,7 +22,7 @@ import org.jooq.impl.Internal
 import org.jooq.impl.SQLDataType
 import org.jooq.impl.TableImpl
 import org.jooq.mcve.kotlin.Mcve
-import org.jooq.mcve.kotlin.keys.PK_TEST
+import org.jooq.mcve.kotlin.keys.PK_PRIMARY_KII
 import org.jooq.mcve.kotlin.tables.records.TestRecord
 
 
@@ -60,14 +60,19 @@ open class Test(
     override fun getRecordType(): Class<TestRecord> = TestRecord::class.java
 
     /**
-     * The column <code>MCVE.TEST.ID</code>.
+     * The column <code>MCVE.TEST.COMPANY_ID</code>.
      */
-    val ID: TableField<TestRecord, Int?> = createField(DSL.name("ID"), SQLDataType.INTEGER.nullable(false).identity(true), this, "")
+    val COMPANY_ID: TableField<TestRecord, String?> = createField(DSL.name("COMPANY_ID"), SQLDataType.VARCHAR(36).nullable(false), this, "")
 
     /**
-     * The column <code>MCVE.TEST.VALUE</code>.
+     * The column <code>MCVE.TEST.ALLOCATION_ID</code>.
      */
-    val VALUE: TableField<TestRecord, Int?> = createField(DSL.name("VALUE"), SQLDataType.INTEGER, this, "")
+    val ALLOCATION_ID: TableField<TestRecord, Int?> = createField(DSL.name("ALLOCATION_ID"), SQLDataType.INTEGER.nullable(false).identity(true), this, "")
+
+    /**
+     * The column <code>MCVE.TEST.NAME</code>.
+     */
+    val NAME: TableField<TestRecord, String?> = createField(DSL.name("NAME"), SQLDataType.VARCHAR(512).nullable(false), this, "")
 
     private constructor(alias: Name, aliased: Table<TestRecord>?): this(alias, null, null, aliased, null)
     private constructor(alias: Name, aliased: Table<TestRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
@@ -90,8 +95,8 @@ open class Test(
     constructor(child: Table<out Record>, key: ForeignKey<out Record, TestRecord>): this(Internal.createPathAlias(child, key), child, key, TEST, null)
     override fun getSchema(): Schema = Mcve.MCVE
     override fun getIdentity(): Identity<TestRecord, Int?> = super.getIdentity() as Identity<TestRecord, Int?>
-    override fun getPrimaryKey(): UniqueKey<TestRecord> = PK_TEST
-    override fun getKeys(): List<UniqueKey<TestRecord>> = listOf(PK_TEST)
+    override fun getPrimaryKey(): UniqueKey<TestRecord> = PK_PRIMARY_KII
+    override fun getKeys(): List<UniqueKey<TestRecord>> = listOf(PK_PRIMARY_KII)
     override fun `as`(alias: String): Test = Test(DSL.name(alias), this)
     override fun `as`(alias: Name): Test = Test(alias, this)
 
@@ -106,7 +111,7 @@ open class Test(
     override fun rename(name: Name): Test = Test(name, null)
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row2<Int?, Int?> = super.fieldsRow() as Row2<Int?, Int?>
+    override fun fieldsRow(): Row3<String?, Int?, String?> = super.fieldsRow() as Row3<String?, Int?, String?>
 }

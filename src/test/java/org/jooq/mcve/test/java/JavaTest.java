@@ -5,19 +5,20 @@ import org.junit.Test;
 
 import static org.jooq.mcve.java.Tables.TEST;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class JavaTest extends AbstractTest {
 
     @Test
     public void mcveTest() {
-        TestRecord result =
-        ctx.insertInto(TEST)
-           .columns(TEST.VALUE)
-           .values(42)
-           .returning(TEST.ID)
-           .fetchOne();
+        TestRecord record = ctx.newRecord(TEST);
+        record.setCompanyId("company-01");
+        record.setName("This is a name");
+        record.insert();
 
-        result.refresh();
-        assertEquals(42, (int) result.getValue());
+        System.out.println("RECORD RESULT: " + record);
+        assertNotNull(record.getAllocationId());
+        assertEquals(0L, (long)record.getAllocationId());
+
     }
 }

@@ -22,5 +22,5 @@ object Keys {
   // UNIQUE and PRIMARY KEY definitions
   // -------------------------------------------------------------------------
 
-  val PK_TEST: UniqueKey[TestRecord] = Internal.createUniqueKey(Test.TEST, DSL.name("PK_TEST"), Array(Test.TEST.ID).asInstanceOf[Array[TableField[TestRecord, _] ] ], true)
+  val PK_PRIMARY_KII: UniqueKey[TestRecord] = Internal.createUniqueKey(Test.TEST, DSL.name("PK_PRIMARY_KII"), Array(Test.TEST.COMPANY_ID, Test.TEST.ALLOCATION_ID).asInstanceOf[Array[TableField[TestRecord, _] ] ], true)
 }

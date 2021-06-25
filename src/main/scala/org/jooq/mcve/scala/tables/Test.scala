@@ -15,7 +15,7 @@ import org.jooq.ForeignKey
 import org.jooq.Identity
 import org.jooq.Name
 import org.jooq.Record
-import org.jooq.Row2
+import org.jooq.Row3
 import org.jooq.Schema
 import org.jooq.Table
 import org.jooq.TableField
@@ -67,14 +67,19 @@ extends TableImpl[TestRecord](
   override def getRecordType: Class[TestRecord] = classOf[TestRecord]
 
   /**
-   * The column <code>MCVE.TEST.ID</code>.
+   * The column <code>MCVE.TEST.COMPANY_ID</code>.
    */
-  val ID: TableField[TestRecord, Integer] = createField(DSL.name("ID"), SQLDataType.INTEGER.nullable(false).identity(true), "")
+  val COMPANY_ID: TableField[TestRecord, String] = createField(DSL.name("COMPANY_ID"), SQLDataType.VARCHAR(36).nullable(false), "")
 
   /**
-   * The column <code>MCVE.TEST.VALUE</code>.
+   * The column <code>MCVE.TEST.ALLOCATION_ID</code>.
    */
-  val VALUE: TableField[TestRecord, Integer] = createField(DSL.name("VALUE"), SQLDataType.INTEGER, "")
+  val ALLOCATION_ID: TableField[TestRecord, Integer] = createField(DSL.name("ALLOCATION_ID"), SQLDataType.INTEGER.nullable(false).identity(true), "")
+
+  /**
+   * The column <code>MCVE.TEST.NAME</code>.
+   */
+  val NAME: TableField[TestRecord, String] = createField(DSL.name("NAME"), SQLDataType.VARCHAR(512).nullable(false), "")
 
   private def this(alias: Name, aliased: Table[TestRecord]) = this(alias, null, null, aliased, null)
 
@@ -99,9 +104,9 @@ extends TableImpl[TestRecord](
 
   override def getIdentity: Identity[TestRecord, Integer] = super.getIdentity.asInstanceOf[ Identity[TestRecord, Integer] ]
 
-  override def getPrimaryKey: UniqueKey[TestRecord] = Keys.PK_TEST
+  override def getPrimaryKey: UniqueKey[TestRecord] = Keys.PK_PRIMARY_KII
 
-  override def getKeys: List[ UniqueKey[TestRecord] ] = Arrays.asList[ UniqueKey[TestRecord] ](Keys.PK_TEST)
+  override def getKeys: List[ UniqueKey[TestRecord] ] = Arrays.asList[ UniqueKey[TestRecord] ](Keys.PK_PRIMARY_KII)
   override def as(alias: String): Test = new Test(DSL.name(alias), this)
   override def as(alias: Name): Test = new Test(alias, this)
 
@@ -116,7 +121,7 @@ extends TableImpl[TestRecord](
   override def rename(name: Name): Test = new Test(name, null)
 
   // -------------------------------------------------------------------------
-  // Row2 type methods
+  // Row3 type methods
   // -------------------------------------------------------------------------
-  override def fieldsRow: Row2[Integer, Integer] = super.fieldsRow.asInstanceOf[ Row2[Integer, Integer] ]
+  override def fieldsRow: Row3[String, Integer, String] = super.fieldsRow.asInstanceOf[ Row3[String, Integer, String] ]
 }

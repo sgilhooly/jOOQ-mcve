@@ -11,12 +11,12 @@ class KotlinTest : AbstractTest() {
     fun mcveTest() {
         val result = ctx
                 .insertInto(TEST)
-                .columns(TEST.VALUE)
-                .values(42)
-                .returning(TEST.ID)
+                .columns(TEST.COMPANY_ID, TEST.NAME)
+                .values("42", "Some name")
+                .returning(TEST.COMPANY_ID)
                 .fetchOne()
 
         result?.refresh()
-        assertEquals(42, result?.value)
+        assertEquals("42", result?.companyId)
     }
 }

@@ -12,7 +12,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row2;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -48,14 +48,19 @@ public class Test extends TableImpl<TestRecord> {
     }
 
     /**
-     * The column <code>MCVE.TEST.ID</code>.
+     * The column <code>MCVE.TEST.COMPANY_ID</code>.
      */
-    public final TableField<TestRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+    public final TableField<TestRecord, String> COMPANY_ID = createField(DSL.name("COMPANY_ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>MCVE.TEST.VALUE</code>.
+     * The column <code>MCVE.TEST.ALLOCATION_ID</code>.
      */
-    public final TableField<TestRecord, Integer> VALUE = createField(DSL.name("VALUE"), SQLDataType.INTEGER, this, "");
+    public final TableField<TestRecord, Integer> ALLOCATION_ID = createField(DSL.name("ALLOCATION_ID"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
+
+    /**
+     * The column <code>MCVE.TEST.NAME</code>.
+     */
+    public final TableField<TestRecord, String> NAME = createField(DSL.name("NAME"), SQLDataType.VARCHAR(512).nullable(false), this, "");
 
     private Test(Name alias, Table<TestRecord> aliased) {
         this(alias, aliased, null);
@@ -102,12 +107,12 @@ public class Test extends TableImpl<TestRecord> {
 
     @Override
     public UniqueKey<TestRecord> getPrimaryKey() {
-        return Keys.PK_TEST;
+        return Keys.PK_PRIMARY_KII;
     }
 
     @Override
     public List<UniqueKey<TestRecord>> getKeys() {
-        return Arrays.<UniqueKey<TestRecord>>asList(Keys.PK_TEST);
+        return Arrays.<UniqueKey<TestRecord>>asList(Keys.PK_PRIMARY_KII);
     }
 
     @Override
@@ -137,11 +142,11 @@ public class Test extends TableImpl<TestRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<Integer, Integer> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row3<String, Integer, String> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 }

@@ -23,5 +23,5 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<TestRecord> PK_TEST = Internal.createUniqueKey(Test.TEST, DSL.name("PK_TEST"), new TableField[] { Test.TEST.ID }, true);
+    public static final UniqueKey<TestRecord> PK_PRIMARY_KII = Internal.createUniqueKey(Test.TEST, DSL.name("PK_PRIMARY_KII"), new TableField[] { Test.TEST.COMPANY_ID, Test.TEST.ALLOCATION_ID }, true);
 }

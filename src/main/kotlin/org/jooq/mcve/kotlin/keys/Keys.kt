@@ -16,4 +16,4 @@ import org.jooq.mcve.kotlin.tables.records.TestRecord
 // UNIQUE and PRIMARY KEY definitions
 // -------------------------------------------------------------------------
 
-val PK_TEST: UniqueKey<TestRecord> = Internal.createUniqueKey(Test.TEST, DSL.name("PK_TEST"), arrayOf(Test.TEST.ID), true)
+val PK_PRIMARY_KII: UniqueKey<TestRecord> = Internal.createUniqueKey(Test.TEST, DSL.name("PK_PRIMARY_KII"), arrayOf(Test.TEST.COMPANY_ID, Test.TEST.ALLOCATION_ID), true)
